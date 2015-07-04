@@ -37,4 +37,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->hasMany('\App\BusinessLogic\Models\Product');
     }
+
+    public function purchases()
+    {
+        return $this->hasMany('\App\BusinessLogic\Models\Purchase');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany('\App\BusinessLogic\Models\Order');
+    }
 }

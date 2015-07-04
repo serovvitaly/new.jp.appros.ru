@@ -88,7 +88,7 @@ class RestUserTest extends TestCase
         $this->assertResponseOk();
 
         $this->get($url, ['X-Requested-With' => 'XMLHttpRequest'])->seeJson([
-            'id' => $user_id,
+            'id' => strval($user_id),
             'name' => $new_name,
             'email' => $new_email
         ]);

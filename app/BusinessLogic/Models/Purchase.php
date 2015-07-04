@@ -1,17 +1,8 @@
 <?php namespace App\BusinessLogic\Models;
 
 
-use App\BusinessLogic\Model;
-
-class Purchase extends Model
+class Purchase extends \App\Models\PurchaseModel
 {
-    static $table_name = 'purchases';
-
-    public function __construct($data)
-    {
-        //
-    }
-
     public function addProduct(Product $product)
     {
         new ProductInPurchase($product, $this);

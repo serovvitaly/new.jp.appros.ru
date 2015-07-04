@@ -81,14 +81,14 @@ class RestProductTest extends TestCase
 
         $user = \App\User::find(8);
 
-        $response = $this->actingAs($user)
+        $this->actingAs($user)
             ->patch($url, [
                 '_token' => \Session::token(),
                 'name' => $new_name,
                 'description' => $new_description
             ], [
                 'X-Requested-With' => 'XMLHttpRequest'
-            ])->response;
+            ]);
 
         $this->assertResponseOk();
 
@@ -118,9 +118,7 @@ class RestProductTest extends TestCase
 
         $user = \App\User::find(8);
 
-        $response = $this->actingAs($user)->delete($url, ['_token' => \Session::token()], ['X-Requested-With' => 'XMLHttpRequest'])->see(1)->response;
-
-        \Storage::disk('local')->put('tests/makeProduct.html', $response->content());
+        $this->actingAs($user)->delete($url, ['_token' => \Session::token()], ['X-Requested-With' => 'XMLHttpRequest'])->see(1);
 
         $this->assertResponseOk();
 

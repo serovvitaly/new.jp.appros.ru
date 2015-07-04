@@ -14,7 +14,7 @@ class PurchaseModel extends Model {
 
     protected $orders_total_sum = 0;
 
-    protected $fillable = ['user_id', 'name', 'description', 'pricing_grid_id', 'expiration_time', 'supplier_id'];
+    protected $fillable = ['user_id', 'name', 'description', 'pricing_grid_id', 'expiration_time', 'supplier_id', 'minimum_total_amount'];
 
     /**
      * "Продавец"
