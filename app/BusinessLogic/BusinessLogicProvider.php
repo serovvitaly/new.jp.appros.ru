@@ -6,14 +6,45 @@ use App\BusinessLogic\Models\Product;
 use App\BusinessLogic\Models\ProductInPurchase;
 use App\BusinessLogic\Models\Purchase;
 use App\BusinessLogic\Models\User;
-use Prophecy\Exception\InvalidArgumentException;
 
 class BusinessLogicProvider
 {
+    protected $app = null;
 
+    public function __construct($app)
+    {
+        $this->app = $app;
+    }
+
+    /**
+     * Возвращает модель Пользователя
+     * @param $id
+     * @return mixed
+     */
+    public function getUser($id)
+    {
+        return \App\BusinessLogic\Models\User::find($id);
+    }
+
+    /**
+     * Возвращает список моделей пользователей
+     * @param Additions\FilterAddition|null $filter
+     * @return mixed
+     */
+    public function getUsersArr(\App\BusinessLogic\Additions\FilterAddition $filter = null)
+    {
+        $users = \App\BusinessLogic\Models\User::get();
+
+        return $users;
+    }
+
+    /**
+     * Возвращает модель текущего пользователя
+     * @return User
+     */
     public static function getCurrentUser()
     {
-        return new \App\BusinessLogic\Models\User();
+        return new User();
     }
 
     /**

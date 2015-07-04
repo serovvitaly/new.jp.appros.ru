@@ -10,20 +10,8 @@ use App\BusinessLogic\Models\Purchase;
  * Class User
  * @package App\BusinessLogic\Models
  */
-class User extends Model
+class User extends \App\User
 {
-
-    public static function findById($id)
-    {
-        $user_obj = self::findRecordById($id);
-
-        if (empty($user_obj)) {
-            return null;
-        }
-
-        return new self( (array) $user_obj );
-    }
-
     public function getInstancesList($model_name, FilterAddition $filter = null)
     {
         $sql = 'SELECT * FROM ' . $model_name::getTableName();
