@@ -7,6 +7,7 @@ class BusinessLogicProvider
 {
     use \App\BusinessLogic\ProductProviderTrait,
         \App\BusinessLogic\PurchaseProviderTrait,
+        \App\BusinessLogic\ProductInPurchaseProviderTrait,
         \App\BusinessLogic\OrderProviderTrait;
 
     protected $app = null;

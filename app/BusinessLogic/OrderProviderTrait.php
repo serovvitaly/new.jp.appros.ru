@@ -1,6 +1,6 @@
 <?php
 
-namespace app\BusinessLogic;
+namespace App\BusinessLogic;
 
 
 trait OrderProviderTrait

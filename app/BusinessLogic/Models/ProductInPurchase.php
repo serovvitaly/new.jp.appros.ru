@@ -1,9 +1,7 @@
 <?php namespace App\BusinessLogic\Models;
 
 
-use App\BusinessLogic\Model;
-
-class ProductInPurchase extends Model
+class ProductInPurchase
 {
     protected $product = null;
 
@@ -24,17 +22,6 @@ class ProductInPurchase extends Model
     public function getProduct()
     {
         return $this->product;
-    }
-
-    /**
-     * Удалить от имени пользователя
-     * @param User $owner_user
-     */
-    public function destroyOnBehalfOfUser(User $owner_user)
-    {
-        $this->assertOwnerUser($owner_user);
-
-        //
     }
 
 }
