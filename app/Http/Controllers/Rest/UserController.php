@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return app('BusinessLogic')->getUsersArr();
+        return \App\User::get();
     }
 
     /**
@@ -54,7 +54,7 @@ class UserController extends Controller
     {
         // TODO: сделать проверку прав на просмотр пользователя
 
-        $user = app('BusinessLogic')->getUser($id);
+        $user = \App\User::find($id);
 
         if (!$user) {
             return ['User not found'];

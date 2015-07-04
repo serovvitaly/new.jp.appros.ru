@@ -38,7 +38,7 @@ Route::group(['prefix' => 'rest'], function()
     //Route::resource('basket', 'Rest\BasketController');
     //Route::resource('token', 'Rest\TokenController');
     //Route::resource('comment', 'Rest\CommentController');
-    //Route::resource('orders', 'Rest\OrdersController');
+    Route::resource('order', 'Rest\OrderController');
     //Route::resource('grid', 'Rest\GridController');
     Route::resource('user', 'Rest\UserController');
 });

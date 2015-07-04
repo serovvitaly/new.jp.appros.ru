@@ -35,14 +35,14 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $product_id
      * @return Response
      */
-    public function show($id)
+    public function show($product_id)
     {
         // TODO: сделать проверку прав на просмотр продукта
 
-        $product = app('BusinessLogic')->getProduct($id);
+        $product = app('BusinessLogic')->getProduct($product_id);
 
         if (!$product) {
             return ['Product not found'];
@@ -54,15 +54,15 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int $id
+     * @param  int $product_id
      * @param Request $request
      * @return Response
      */
-    public function update($id, Request $request)
+    public function update($product_id, Request $request)
     {
         // TODO: сделать проверку прав на изменение продукта
 
-        return app('BusinessLogic')->updateProduct($id, $request->all());
+        return app('BusinessLogic')->updateProduct($product_id, $request->all());
     }
 
     /**

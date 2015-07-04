@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Тестирование Закупок
  * @author Vitaly Serov
