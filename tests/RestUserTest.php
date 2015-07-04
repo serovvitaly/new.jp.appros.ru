@@ -37,13 +37,7 @@ class RestUserTest extends TestCase
 
         $this->assertResponseOk();
 
-        $content = json_decode($response->content());
-
-        return [
-            'id' => strval($content->id),
-            'name' => $name,
-            'email' => $email
-        ];
+        return json_decode($response->content());
     }
 
     /**
@@ -53,15 +47,19 @@ class RestUserTest extends TestCase
      */
     public function testShowUser($user_data)
     {
-        $this->assertNotEmpty($user_data['id']);
+        $user_id = $user_data->id;
 
-        $url = '/rest/user/' . $user_data['id'];
+        $this->assertNotEmpty($user_id);
 
-        $this->get($url, ['X-Requested-With' => 'XMLHttpRequest'])->seeJson($user_data);
+        $url = '/rest/user/' . $user_id;
+
+        $user_data->id = strval($user_data->id);
+
+        $this->get($url, ['X-Requested-With' => 'XMLHttpRequest'])->seeJson( (array) $user_data );
 
         $this->assertResponseOk();
 
-        return $user_data['id'];
+        return $user_id;
     }
 
     /**
@@ -90,6 +88,7 @@ class RestUserTest extends TestCase
         $this->assertResponseOk();
 
         $this->get($url, ['X-Requested-With' => 'XMLHttpRequest'])->seeJson([
+            'id' => $user_id,
             'name' => $new_name,
             'email' => $new_email
         ]);
@@ -104,7 +103,7 @@ class RestUserTest extends TestCase
      * @depends testUpdateUser
      * @param $user_id
      */
-    public function testDestroyUser($user_id)
+    public function testDeleteUser($user_id)
     {
         $this->assertNotEmpty($user_id);
 

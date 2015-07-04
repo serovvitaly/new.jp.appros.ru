@@ -1,16 +1,11 @@
-<?php namespace App\BusinessLogic\Models;
+<?php
 
+namespace App\BusinessLogic\Models;
 
-use App\BusinessLogic\Model;
+use App\Models\ProductModel;
 
-class Product extends Model
+class Product extends ProductModel
 {
-    static $table_name = 'products';
-
-    public function __construct($data)
-    {
-        //
-    }
 
     /**
      * Добавление Продукта в Закупку
@@ -22,14 +17,6 @@ class Product extends Model
         $purchase->addProduct($this);
 
         return $this;
-    }
-
-    /**
-     * Возвращает пользователя Владельца данного продукта
-     */
-    public function getOwnerUser()
-    {
-        //
     }
 
     /**

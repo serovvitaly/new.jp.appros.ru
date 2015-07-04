@@ -5,15 +5,19 @@ use App\BusinessLogic\Models\Order;
 use App\BusinessLogic\Models\Product;
 use App\BusinessLogic\Models\ProductInPurchase;
 use App\BusinessLogic\Models\Purchase;
-use App\BusinessLogic\Models\User;
+use App\User;
 
 class BusinessLogicProvider
 {
     protected $app = null;
 
+    protected $user = null;
+
     public function __construct($app)
     {
         $this->app = $app;
+
+        $this->user = \Auth::user();
     }
 
     /**
@@ -23,7 +27,7 @@ class BusinessLogicProvider
      */
     public function getUser($id)
     {
-        return \App\BusinessLogic\Models\User::find($id);
+        return \App\User::find($id);
     }
 
     /**
@@ -33,18 +37,9 @@ class BusinessLogicProvider
      */
     public function getUsersArr(\App\BusinessLogic\Additions\FilterAddition $filter = null)
     {
-        $users = \App\BusinessLogic\Models\User::get();
+        $users = \App\User::get();
 
         return $users;
-    }
-
-    /**
-     * Возвращает модель текущего пользователя
-     * @return User
-     */
-    public static function getCurrentUser()
-    {
-        return new User();
     }
 
     /**
@@ -110,20 +105,97 @@ class BusinessLogicProvider
         //
     }
 
-    public static function makeProduct(array $params)
+    /**
+     * Создание продукта
+     * @param array $fields
+     * @return Product
+     * @throws \Exception
+     */
+    public function makeProduct(array $fields)
     {
-        $validator = \Validator::make($params, [
-            'name' => 'required|unique:posts|max:255',
-            'description' => 'required',
-            'user_id' => 'required|unique:users',
+        $validator = \Validator::make($fields, [
+            'name' => 'required|max:255',
+            'description' => 'max:5000'
         ]);
 
         if ($validator->fails()) {
-            throw new \Exception($validator->errors());
+            return $validator->errors();
         }
 
-        $product = new \App\BusinessLogic\Models\Product( (object) $params );
+        $fields['user_id'] = $this->user->id;
+
+        $product = \App\BusinessLogic\Models\Product::create($fields);
 
         return $product;
+    }
+
+    /**
+     * Возвращает модель продукта
+     * @param $product_id
+     * @return mixed
+     */
+    public function getProduct($product_id)
+    {
+        return \App\BusinessLogic\Models\Product::find($product_id);
+    }
+
+    /**
+     * Возвращает список продуктов
+     * @return mixed
+     */
+    public function getProductsList()
+    {
+        return \App\BusinessLogic\Models\Product::take(50)->get();
+    }
+
+    /**
+     * Изменение продукта
+     * @param $product_id
+     * @param array $fields
+     * @return mixed
+     */
+    public function updateProduct($product_id, array $fields)
+    {
+        $validator = \Validator::make($fields, [
+            'name' => 'required|max:255',
+            'description' => 'max:5000'
+        ]);
+
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        // TODO: сделать проверку прав на изменение продукта
+
+        $product = \App\BusinessLogic\Models\Product::find($product_id);
+
+        if (!$product) {
+            return ['Product not found'];
+        }
+
+        $product->name = $fields['name'];
+        $product->description = $fields['description'];
+
+        $product->save();
+
+        return $product;
+    }
+
+    /**
+     * Удаление продукта
+     * @param $product_id
+     * @return bool
+     */
+    public function deleteProduct($product_id)
+    {
+        $product = $this->user->products()->find($product_id);
+
+        if (!$product) {
+            return false;
+        }
+
+        $product->delete();
+
+        return true;
     }
 }
