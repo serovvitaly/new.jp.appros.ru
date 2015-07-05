@@ -5,6 +5,8 @@ class CatalogController extends Controller {
 
     public function getIndex()
     {
+        return view('tezo/index');
+
         $offset = intval(\Input::get('start', 0));
         $limit = intval(\Input::get('limit', 40));
 

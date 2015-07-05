@@ -5,3 +5,5 @@ Homestead.yaml
 .idea
 .nginx
 /composer.lock
+sphinxsearch/data
+sphinxsearch/log
