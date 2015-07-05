@@ -1,6 +1,9 @@
 <?php namespace App\BusinessLogic;
 
 
+use App\BusinessLogic\Models\Product;
+use App\BusinessLogic\Models\Purchase;
+
 class ProductInPurchase
 {
     protected $product = null;
@@ -14,9 +17,12 @@ class ProductInPurchase
         $this->purchase = $purchase;
     }
 
-    public static function get()
+    public function __toString()
     {
-        //
+        return json_encode([
+            'product' => $this->product,
+            'purchase' => $this->purchase
+        ]);
     }
 
     public function getPurchase()

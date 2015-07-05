@@ -39,6 +39,7 @@ Route::controllers([
  */
 Route::group(['prefix' => 'rest'], function()
 {
+    Route::resource('pip', 'Rest\ProductInPurchaseController');
     Route::resource('product', 'Rest\ProductController');
     Route::resource('purchase', 'Rest\PurchaseController');
     Route::resource('payment-transaction', 'Rest\PaymentTransactionController');

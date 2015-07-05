@@ -5,6 +5,32 @@ class CatalogController extends Controller {
 
     public function getIndex()
     {
+        $sphinx = \Sphinx\SphinxClient::create();
+
+        // Подсоединяемся к Sphinx-серверу
+        $sphinx->setServer('127.0.0.1', 3312);
+
+        // Совпадение по любому слову
+        $sphinx->setMatchMode(\Sphinx\SphinxClient::SPH_MATCH_ANY);
+
+        // Результаты сортировать по релевантности
+        //$sphinx->setSortMode(\Sphinx\SphinxClient::SPH_SORT_EXTENDED);
+
+        // Задаем полям веса (для подсчета релевантности)
+        //$sphinx->setFieldWeights(array ('name' => 20, 'description' => 10));
+
+        $sphinx->addQuery(\Input::get('q', ''), '*');
+
+        $res = $sphinx->runQueries();
+
+        if (!$res) {
+            return [false];
+        }
+
+        return $res;
+
+        print_r($res);
+
         return view('tezo/index');
 
         $offset = intval(\Input::get('start', 0));

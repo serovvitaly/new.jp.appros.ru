@@ -7,3 +7,4 @@ Homestead.yaml
 /composer.lock
 sphinxsearch/data
 sphinxsearch/log
+composer.lock
