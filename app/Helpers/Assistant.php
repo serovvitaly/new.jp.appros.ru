@@ -36,4 +36,34 @@ class Assistant {
         //
     }
 
+    /**
+     * Проверяет пользователя, если пользователя нет, то выбрасывает исключение
+     * @param \App\User|null $user
+     * @throws Exception
+     */
+    public static function assertUser(\App\User $user = null)
+    {
+        if ($user) {
+            return;
+        }
+
+        throw new \Exception('There is no user access');
+    }
+
+    /**
+     * Проверяет пользователя, если пользователя нет, то выбрасывает исключение
+     * @param \App\User|null $user
+     * @throws Exception
+     */
+    public static function assertUserAsJson(\App\User $user = null)
+    {
+        if ($user) {
+            return;
+        }
+
+        $response = new \Illuminate\Http\JsonResponse(['There is no user access'], 403);
+
+        throw new \Illuminate\Http\Exception\HttpResponseException($response);
+    }
+
 }

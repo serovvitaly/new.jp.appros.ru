@@ -14,16 +14,16 @@ class SupplierModel extends Model {
 
     /**
      * Товары поставщика
-     * @return \App\Models\ProductModel
+     * @return \App\BusinessLogic\Models\Product
      */
     public function products()
     {
-        return $this->hasMany('\App\Models\ProductModel', 'supplier_id');
+        return $this->hasMany('\App\BusinessLogic\Models\Product', 'supplier_id');
     }
 
     /**
      * Закупки
-     * @return \App\Models\ProductModel
+     * @return \App\BusinessLogic\Models\Product
      */
     public function purchases()
     {

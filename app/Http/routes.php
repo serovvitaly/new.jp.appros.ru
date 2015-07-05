@@ -30,6 +30,7 @@ Route::group(['prefix' => 'rest'], function()
 {
     Route::resource('product', 'Rest\ProductController');
     Route::resource('purchase', 'Rest\PurchaseController');
+    Route::resource('payment-transaction', 'Rest\PaymentTransactionController');
     //Route::resource('attribute', 'Rest\AttributeController');
     //Route::resource('catalog', 'Rest\CatalogController');
     //Route::resource('pricing-grid', 'Rest\PricingGridController');

@@ -10,7 +10,7 @@ class CatalogModel extends NestedSets {
 
     public function products()
     {
-        return $this->belongsToMany('\App\Models\ProductModel', 'category_product', 'category_id', 'product_id');
+        return $this->belongsToMany('\App\BusinessLogic\Models\Product', 'category_product', 'category_id', 'product_id');
     }
 
     public static function getRootNode()

@@ -13,7 +13,7 @@ class MediaTest extends TestCase {
      */
     public function testLoadImage()
     {
-        $product_model = \App\Models\ProductModel::first();
+        $product_model = \App\BusinessLogic\Models\Product::first();
 
         if (!$product_model) {
             return;

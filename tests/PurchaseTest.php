@@ -55,7 +55,7 @@ class PurchaseTest extends TestCase {
 
         $products_count = rand(2, 5);
 
-        $products_models_arr = \App\Models\ProductModel::take($products_count)->get();
+        $products_models_arr = \App\BusinessLogic\Models\Product::take($products_count)->get();
 
         //$this->assertEquals(count($products_models_arr), $products_count);
 

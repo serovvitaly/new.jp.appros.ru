@@ -13,6 +13,8 @@ trait OrderProviderTrait
      */
     public function makeOrder(array $fields)
     {
+        \App\Helpers\Assistant::assertUserAsJson($this->user);
+
         $validator = \Validator::make($fields, [
             'purchase_id' => 'required|integer',
             'product_id' => 'required|integer',
@@ -23,25 +25,9 @@ trait OrderProviderTrait
             return $validator->errors();
         }
 
-        $fields['user_id'] = $this->user->id;
+        $order = $this->user->makeOrder($fields['purchase_id'], $fields['product_id'], $fields['amount']);
 
-        $fields[] = $fields['amount'];
-
-        $sql = 'INSERT INTO orders (purchase_id, product_id, amount, user_id) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE amount = amount + ?';
-
-        \DB::insert($sql, [
-            $fields['purchase_id'],
-            $fields['product_id'],
-            $fields['amount'],
-            $fields['user_id'],
-            $fields['amount']
-        ]);
-
-        $order_id = \DB::connection()->getPdo()->lastInsertId();
-
-        //$order = \App\BusinessLogic\Models\Order::create($fields);
-
-        return ['id' => $order_id];
+        return $order;
     }
 
     /**
@@ -71,6 +57,8 @@ trait OrderProviderTrait
      */
     public function updateOrder($order_id, array $fields)
     {
+        \App\Helpers\Assistant::assertUserAsJson($this->user);
+
         $validator = \Validator::make($fields, [
             'amount' => 'required|integer'
         ]);
@@ -79,17 +67,11 @@ trait OrderProviderTrait
             return $validator->errors();
         }
 
-        // TODO: сделать проверку прав на изменение заказа
-
-        $order = \App\BusinessLogic\Models\Order::find($order_id);
+        $order = $this->user->updateAmountOrder($order_id, $fields['amount']);
 
         if (!$order) {
             return ['Order not found'];
         }
-
-        $order->amount = $fields['amount'];
-
-        $order->save();
 
         return $order;
     }
@@ -101,6 +83,8 @@ trait OrderProviderTrait
      */
     public function deleteOrder($order_id)
     {
+        \App\Helpers\Assistant::assertUserAsJson($this->user);
+
         $order = $this->user->orders()->find($order_id);
 
         if (!$order) {

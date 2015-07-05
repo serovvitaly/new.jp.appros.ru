@@ -43,7 +43,7 @@ class TestExcel extends Command {
         $this->info('Catalog count = ' . count($catalog));
 
         foreach ($catalog as $item) {
-            $product = new \App\Models\ProductModel;
+            $product = new \App\BusinessLogic\Models\Product;
 
             $product->name = $item->title;
             $product->user_id = 1;

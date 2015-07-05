@@ -72,8 +72,6 @@ class OrderController extends Controller
      */
     public function destroy($order_id)
     {
-        return 0;
-
         // TODO: сделать проверку прав на удаление заказа
 
         return (string) app('BusinessLogic')->deleteOrder($order_id);

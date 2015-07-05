@@ -35,7 +35,7 @@ class ProductInPurchaseModel extends Model {
 
     public function product()
     {
-        return $this->belongsTo('\App\Models\ProductModel');
+        return $this->belongsTo('\App\BusinessLogic\Models\Product');
     }
 
     public function purchase()

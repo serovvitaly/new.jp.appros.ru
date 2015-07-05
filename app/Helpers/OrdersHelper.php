@@ -5,7 +5,7 @@ class OrdersHelper
 {
 
     /**
-     * Возвращает идентификаторы закупок для указанного пользователя
+     * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      * @param $user_id
      * @param $take
      * @param $offset
@@ -13,7 +13,7 @@ class OrdersHelper
      */
     public static function getPurchasesIdsArrByUserId($user_id, $take = 10, $offset = 0)
     {
-        $orders_models = \App\Models\OrderModel::where('user_id', '=', $user_id)->groupBy('purchase_id')->orderBy('created_at', 'desc')->take($take)->offset($offset)->get(['purchase_id']);
+        $orders_models = \App\BusinessLogic\Models\Order::where('user_id', '=', $user_id)->groupBy('purchase_id')->orderBy('created_at', 'desc')->take($take)->offset($offset)->get(['purchase_id']);
 
         if (!$orders_models->count()) {
             return [];
@@ -30,7 +30,7 @@ class OrdersHelper
 
     public static function getOrdersModelsArrByPurchasesIdsArrAndByUserId($user_id, array $purchases_ids_arr)
     {
-        $orders_models = \App\Models\OrderModel::where('user_id', '=', $user_id)->whereIn('purchase_id', $purchases_ids_arr)->orderBy('created_at', 'desc')->get();
+        $orders_models = \App\BusinessLogic\Models\Order::where('user_id', '=', $user_id)->whereIn('purchase_id', $purchases_ids_arr)->orderBy('created_at', 'desc')->get();
 
         if (!$orders_models->count()) {
             return [];
@@ -47,7 +47,7 @@ class OrdersHelper
 
     public static function getProductsInPurchasesIdsArrByPurchasesIdsArrAndByUserId($user_id, array $purchases_ids_arr)
     {
-        $orders_models = \App\Models\OrderModel::where('user_id', '=', $user_id)->whereIn('purchase_id', $purchases_ids_arr)->orderBy('created_at', 'desc')->get();
+        $orders_models = \App\BusinessLogic\Models\Order::where('user_id', '=', $user_id)->whereIn('purchase_id', $purchases_ids_arr)->orderBy('created_at', 'desc')->get();
 
         if (!$orders_models->count()) {
             return [];

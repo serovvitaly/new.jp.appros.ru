@@ -20,10 +20,10 @@ class PurchaseHelper {
     {
 
         /**
-         * @var $product \App\Models\ProductModel
+         * @var $product \App\BusinessLogic\Models\Product
          * @var $purchase \App\Models\PurchaseModel
          */
-        $product = \App\Models\ProductModel::find($product_id);
+        $product = \App\BusinessLogic\Models\Product::find($product_id);
         $purchase = \App\Models\PurchaseModel::find($purchase_id);
 
         $pricing_grid_columns = $purchase->getPricingGridColumns()->get();

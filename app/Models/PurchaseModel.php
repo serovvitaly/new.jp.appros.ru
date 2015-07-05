@@ -36,11 +36,11 @@ class PurchaseModel extends Model {
 
     /**
      * Продукты в закупке
-     * @return \App\Models\ProductModel
+     * @return \App\BusinessLogic\Models\Product
      */
 	public function products()
     {
-        return $this->belongsToMany('\App\Models\ProductModel', 'products_in_purchase', 'purchase_id', 'product_id');
+        return $this->belongsToMany('\App\BusinessLogic\Models\Product', 'products_in_purchase', 'purchase_id', 'product_id');
     }
 
     /**
@@ -50,7 +50,7 @@ class PurchaseModel extends Model {
      */
     public function appendProduct($product_model_or_id)
     {
-        if ($product_model_or_id instanceof \App\Models\ProductModel) {
+        if ($product_model_or_id instanceof \App\BusinessLogic\Models\Product) {
             $this->products()->attach($product_model_or_id->id);
             return true;
         }
@@ -70,7 +70,7 @@ class PurchaseModel extends Model {
      */
     public function removeProduct($product_model_or_id)
     {
-        if ($product_model_or_id instanceof \App\Models\ProductModel) {
+        if ($product_model_or_id instanceof \App\BusinessLogic\Models\Product) {
             $this->products()->detach($product_model_or_id->id);
             return true;
         }
@@ -168,7 +168,7 @@ class PurchaseModel extends Model {
         /**
          * TODO: здень нужно выбирать только продукт для данной закупки, т.е. \App\Models\ProductInPurchaseModel, через $this->products()
          */
-        $product = \App\Models\ProductModel::find($product_id);
+        $product = \App\BusinessLogic\Models\Product::find($product_id);
         $product_prices = $product->prices($columns_ids_arr);
 
         $product_prices_unsorted = [];
@@ -212,10 +212,10 @@ class PurchaseModel extends Model {
         $products_prices_arr = [];
 
         /**
-         * @var $product_model \App\Models\ProductModel
+         * @var $product_model \App\BusinessLogic\Models\Product
          */
         foreach ($all_orders_products_ids_arr as $product_id) {
-            $product_model = \App\Models\ProductModel::find($product_id);
+            $product_model = \App\BusinessLogic\Models\Product::find($product_id);
             \App\Helpers\Assistant::assertModel($product_model);
 
             $products_prices_arr[$product_id] = $product_model->getPricesArr($pricing_grid_columns_ids_arr);
@@ -316,7 +316,7 @@ class PurchaseModel extends Model {
      */
     public function orders()
     {
-        return $this->hasMany('\App\Models\OrderModel', 'purchase_id');
+        return $this->hasMany('\App\BusinessLogic\Models\Order', 'purchase_id');
     }
 
     /**

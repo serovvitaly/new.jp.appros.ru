@@ -11,9 +11,7 @@ class HomeController extends Controller
      */
     public function getIndex()
     {
-        $user = app('BusinessLogic')->getUser();
-
-        return 'home-'.$user;
+        //
     }
 
 }
