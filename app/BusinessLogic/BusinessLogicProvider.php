@@ -27,4 +27,9 @@ class BusinessLogicProvider
         return $this->user;
     }
 
+    public function getProductsInPurchases()
+    {
+        return \App\BusinessLogic\ProductInPurchase::get();
+    }
+
 }

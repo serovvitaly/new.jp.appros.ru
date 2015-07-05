@@ -11,7 +11,18 @@
 |
 */
 
-Route::get('/', '\App\Http\Controllers\HomeController@getIndex');
+
+Route::get('product-{alias}', 'ProductController@getProduct');
+
+Route::get('admin', 'DashboardController@getIndex');
+
+Route::get('/', 'CatalogController@getIndex');
+
+Route::get('home', 'HomeController@index');
+
+Route::get('zakupka/{id}', 'PurchasesController@getPurchase');
+
+Route::get('/media/images/{width_height}/{file_name}', 'Seller\MediaController@getImage');
 
 Route::resource('user', '\App\Http\Controllers\UserController');
 

@@ -9,4 +9,11 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 abstract class Controller extends BaseController
 {
     use DispatchesJobs, ValidatesRequests;
+
+    protected $user;
+
+    public function __construct()
+    {
+        $this->user = \Auth::user();
+    }
 }

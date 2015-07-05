@@ -1,4 +1,4 @@
-<?php namespace App\BusinessLogic\Models;
+<?php namespace App\BusinessLogic;
 
 
 class ProductInPurchase
@@ -12,6 +12,11 @@ class ProductInPurchase
         $this->product = $product;
 
         $this->purchase = $purchase;
+    }
+
+    public static function get()
+    {
+        //
     }
 
     public function getPurchase()
