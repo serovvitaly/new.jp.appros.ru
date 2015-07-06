@@ -1,18 +1,41 @@
-import Ember from 'ember';
-import Resolver from 'ember/resolver';
-import loadInitializers from 'ember/load-initializers';
-import config from './config/environment';
 
-var App;
+(function($){
 
-Ember.MODEL_FACTORY_INJECTIONS = true;
+    var self = this;
 
-App = Ember.Application.extend({
-  modulePrefix: config.modulePrefix,
-  podModulePrefix: config.podModulePrefix,
-  Resolver: Resolver
-});
+    this.getDataByAjax = function(url, success){
+        $.ajax({
+            url: url,
+            dataType: 'html',
+            type: 'get',
+            success: success
+        });
+    }
 
-loadInitializers(App, config.modulePrefix);
 
-export default App;
+    this.getProducts = function(success){
+        self.getDataByAjax(success);
+    }
+
+    this.makeControllers = function(){
+        $('[controller]').each(function(index, item){
+            var controllerName = $(item).attr('controller');
+            var controllerNameMethod = self.controllers[controllerName];
+            if (typeof(controllerNameMethod) == 'undefined') {
+                return;
+            }
+            self.controllers[controllerName]($(item));
+        });
+    }
+
+    this.controllers = {
+        ProductsListController: function(item){
+            self.getDataByAjax('/catalog', function(responseHtml){
+                //item.html(responseHtml);
+            });
+        }
+    }
+
+    this.makeControllers();
+
+}(jQuery))

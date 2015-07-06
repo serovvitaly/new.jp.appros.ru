@@ -1,5 +1,5 @@
-import Ember from 'ember';
-import config from './config/environment';
+//import Ember from 'ember';
+//import config from './config/environment';
 
 var Router = Ember.Router.extend({
   location: config.locationType
@@ -8,4 +8,4 @@ var Router = Ember.Router.extend({
 Router.map(function() {
 });
 
-export default Router;
+//export default Router;

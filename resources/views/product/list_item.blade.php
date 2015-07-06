@@ -1,13 +1,13 @@
 <?php
 /**
- * @var $product_in_purchase \App\Models\ProductInPurchaseModel
+ * @var $product_in_purchase \App\BusinessLogic\ProductInPurchase
  */
 
 ?>
 <div class="col-sm-6 col-md-4 catalog-item">
     <div class="catalog-item-wrapper">
         <div class="catalog-item-header">
-            <a href="{{ $product_in_purchase->alias() }}" title="{{ $product_in_purchase->product->name }}">
+            <a href="{{ $product_in_purchase->alias() }}" title="{{ $product_in_purchase->getProduct()->name }}">
                 <?php
                     $first_image_file_name = $product_in_purchase->getFirstImageFileName();
                 ?>
@@ -19,7 +19,7 @@
             </a>
         </div>
         <div class="catalog-item-body">
-            <h5 class="title"><a href="{{ $product_in_purchase->alias() }}" title="{{ $product_in_purchase->product->name }}">{{ $product_in_purchase->product->name }}</a></h5>
+            <h5 class="title"><a href="{{ $product_in_purchase->alias() }}" title="{{ $product_in_purchase->getProduct()->name }}">{{ $product_in_purchase->getProduct()->name }}</a></h5>
 
             <h2>
                 {{ $product_in_purchase->getCurrentMaxPrice() }}
@@ -34,7 +34,7 @@
                 <span class="glyphicon glyphicon-star-empty"></span>
             </span>
             <?php
-            $purchase = $product_in_purchase->purchase;
+            $purchase = $product_in_purchase->getPurchase();
             ?>
             <div class="font-mini catalog-item-info">
                 <!--span class="glyphicon glyphicon-user" title="Продавец" style="color: #00708e"></span> <a href="/seller/{{ $purchase->seller->id }}">{{ $purchase->seller->name }}</a><br-->

@@ -16,9 +16,9 @@ Route::get('product-{alias}', 'ProductController@getProduct');
 
 Route::get('admin', 'DashboardController@getIndex');
 
-Route::get('/', 'CatalogController@getIndex');
+Route::get('/', 'HomeController@getIndex');
 
-Route::get('home', 'HomeController@index');
+Route::get('home', 'HomeController@getIndex');
 
 Route::get('zakupka/{id}', 'PurchasesController@getPurchase');
 
@@ -30,7 +30,7 @@ Route::controllers([
     'auth' => '\App\Http\Controllers\Auth\AuthController',
     'password' => '\App\Http\Controllers\Auth\PasswordController',
     //'user' => '\App\Http\Controllers\UserController',
-    //'catalog' => 'CatalogController',
+    'catalog' => 'CatalogController',
     //'orders' => 'OrdersController',
 ]);
 

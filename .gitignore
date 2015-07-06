@@ -8,3 +8,4 @@ Homestead.yaml
 sphinxsearch/data
 sphinxsearch/log
 composer.lock
+public/media/images

@@ -28,17 +28,9 @@
         <div class="col-lg-3">Каталог</div>
         <div class="col-lg-9">
             <div class="row" controller="ProductsListController">
-                @for($i = 1; $i <= 9; $i++)
-                    <div class="col-xs-6 col-lg-4" controller="item-{{ $i }}">
-                        <h2>Heading</h2>
-                        <p>
-                            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
-                            tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-                            Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-                        </p>
-                        <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
-                    </div>
-                @endfor
+                @foreach (app('BusinessLogic')->getProductsInPurchases() as $product_in_purchase)
+                    @include('product.list_item', ['product_in_purchase' => $product_in_purchase])
+                @endforeach
             </div>
         </div>
     </div>
