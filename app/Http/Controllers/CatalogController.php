@@ -5,6 +5,11 @@ class CatalogController extends Controller {
 
     public function getIndex()
     {
+        \Blade::setEscapedContentTags('[[', ']]');
+        \Blade::setContentTags('[[[', ']]]');
+
+        return view('tezo/index');
+
         $sphinx = \Sphinx\SphinxClient::create();
 
         // Подсоединяемся к Sphinx-серверу
@@ -28,10 +33,6 @@ class CatalogController extends Controller {
         }
 
         return $res;
-
-        print_r($res);
-
-        return view('tezo/index');
 
         $offset = intval(\Input::get('start', 0));
         $limit = intval(\Input::get('limit', 40));
