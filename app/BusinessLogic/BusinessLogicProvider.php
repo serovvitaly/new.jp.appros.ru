@@ -31,6 +31,18 @@ class BusinessLogicProvider
     {
         $search_query = \Input::get('q');
 
+        $filter = \Input::get('filter', []);
+
+        $search_query = '';
+        $category_id = 0;
+
+        if (array_key_exists('query', $filter)) {
+            $search_query = trim($filter['query']);
+        }
+        if (array_key_exists('category', $filter)) {
+            $category_id = intval($filter['category']);
+        }
+
         $matches_ids = [];
 
         if ($search_query) {
@@ -48,13 +60,13 @@ class BusinessLogicProvider
             $matches_ids = array_keys($res[0]['matches']);
         }
 
-        $products_in_purchases_query = \DB::table('products_in_purchase')->select('*')->take(15);
+        $products_in_purchases_query = \DB::table('products_in_purchase')->select('*');
 
         if (!empty($matches_ids)) {
             $products_in_purchases_query = $products_in_purchases_query->whereIn('product_id', $matches_ids);
         }
 
-        $products_in_purchases_arr = $products_in_purchases_query->get();
+        $products_in_purchases_arr = $products_in_purchases_query->take(12)->get();
 
         if (empty($products_in_purchases_arr)) {
             return [];
@@ -70,8 +82,6 @@ class BusinessLogicProvider
 
             $products_arr[] = new \App\BusinessLogic\ProductInPurchase($product, $purchase);
         }
-
-        //return [];
 
         return $products_arr;
     }

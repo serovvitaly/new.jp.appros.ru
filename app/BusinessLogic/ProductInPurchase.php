@@ -17,6 +17,11 @@ class ProductInPurchase
         $this->purchase = $purchase;
     }
 
+    public function getId()
+    {
+        return $this->product->id;
+    }
+
     public function getPurchase()
     {
         return $this->purchase;

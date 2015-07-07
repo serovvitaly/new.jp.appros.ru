@@ -3,9 +3,10 @@
 @section('content')
     <?php
     /**
-     * @var $product_in_purchase \App\Models\ProductInPurchaseModel
+     * @var $product_in_purchase \App\BusinessLogic\ProductInPurchase
      */
-    //$product = $product_in_purchase->product;
+    $product = $product_in_purchase->getProduct();
+    $purchase = $product_in_purchase->getPurchase();
 
     $product_images = $product->media('image')->get();
     ?>
@@ -93,7 +94,7 @@
 
                                         <div class="col-md-6" style="text-align: right">
                                             @if(Auth::user())
-                                                <button class="button button-rounded button-flat-caution" style="padding: 2px 12px;" onclick="productAddToBasket('{{ $product_in_purchase->getProductId() }}', '{{ $product_in_purchase->getPurchaseId() }}');">
+                                                <button class="button button-rounded button-flat-caution" style="padding: 2px 12px;" onclick="productAddToBasket('{{ $product->id }}', '{{ $purchase->id }}');">
                                             @else
                                                 <button class="button button-rounded button-flat-caution" style="padding: 2px 12px;" onclick="mustAuthorize();">
                                             @endif
@@ -103,7 +104,7 @@
                                         </div>
 
                                         <div class="col-md-12">
-                                            Закупка завершается {{ \App\Helpers\DateHelper::getDateAgoStr($product_in_purchase->purchase->expiration_time) }}
+                                            Закупка завершается {{ \App\Helpers\DateHelper::getDateAgoStr($purchase->expiration_time) }}
                                         </div>
 
                                     </div>
@@ -122,7 +123,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            @include('product.widgets.comments',  ['target_id' => $product_in_purchase->id, 'target_type' => \App\Models\CommentModel::TARGET_TYPE_PRODUCT_IN_PURCHASE])
+                            @include('product.widgets.comments',  ['target_id' => $product_in_purchase->getId(), 'target_type' => \App\Models\CommentModel::TARGET_TYPE_PRODUCT_IN_PURCHASE])
                             {!! \App\Helpers\WidgetHelper::region('product_bottom', 'buyer') !!}
                         </div>
                     </div>
@@ -166,17 +167,17 @@
                                 <tr>
                                     <td style="width: 22px"><span class="glyphicon glyphicon-user"></span></td>
                                     <td>Участники</td>
-                                    <td class="data-value">{{ $product_in_purchase->purchase->getParticipantsCount() }}</td>
+                                    <td class="data-value">{{ $purchase->getParticipantsCount() }}</td>
                                 </tr>
                                 <tr>
                                     <td><span class="glyphicon glyphicon-ruble"></span></td>
                                     <td>Целевая сумма, руб.</td>
-                                    <td class="data-value">{{ $product_in_purchase->purchase->minimum_total_amount }}</td>
+                                    <td class="data-value">{{ $purchase->minimum_total_amount }}</td>
                                 </tr>
                                 <tr>
                                     <td><span class="glyphicon glyphicon-time"></span></td>
                                     <td>Время истечения</td>
-                                    <td class="data-value">{{ $product_in_purchase->purchase->expiration_time }}</td>
+                                    <td class="data-value">{{ $purchase->expiration_time }}</td>
                                 </tr>
                             </table>
 
@@ -205,7 +206,7 @@
 
                         </div>
                         <div class="content-block">
-                            <a href="/zakupka/{{ $product_in_purchase->purchase->id }}" class="button button-rounded button-flat button-small"><span class="glyphicon glyphicon-link"></span> Перейти к закупке</a>
+                            <a href="/zakupka/{{ $purchase->id }}" class="button button-rounded button-flat button-small"><span class="glyphicon glyphicon-link"></span> Перейти к закупке</a>
                             <!--p><span class="glyphicon glyphicon-link"></span> <a href="#">http://exsemple.com/product-10</a></p-->
                         </div>
                     </div>

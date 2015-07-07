@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/preloader.css">
 </head>
 <body>
 
@@ -23,14 +24,64 @@
     <div class="row">
         <div class="col-lg-12">ЗАГОЛОВОК</div>
     </div>
-
     <div class="row">
-        <div class="col-lg-3">Каталог</div>
-        <div class="col-lg-9">
-            <div class="row" controller="ProductsListController">
-                @foreach (app('BusinessLogic')->getProductsInPurchases() as $product_in_purchase)
-                    @include('product.list_item', ['product_in_purchase' => $product_in_purchase])
-                @endforeach
+        <div class="col-lg-3">
+                <button class="btn btn-lg btn-primary btn-block" data-toggle="dropdown" id="mainTopCategoriesListButton">
+                    Каталог
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                </button>
+                <div class="dropdown-menu" style="margin-left: 15px;">
+                    <div style="width: 1168px">
+                    <div class="row" style="margin: 1px" controller="MainTopCategoriesListController">
+                        @include('catalog.list')
+                    </div>
+                    </div>
+                </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="input-group input-group-lg" controller="MainTopSearchController">
+                <input type="text" class="form-control" placeholder="что ищем?" autocomplete="off">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Go!</button>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-3">
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-lg-12">
+            <nav class="navbar navbar-default" style="margin: 10px 0 5px">
+                <div class="collapse navbar-collapse btn-group">
+                    <button type="button" class="btn btn-default navbar-btn">Товары для детей</button>
+                    <button type="button" class="btn btn-default navbar-btn">Товары для женщин</button>
+                    <button type="button" class="btn btn-default navbar-btn">Товары для мужчин</button>
+                </div>
+            </nav>
+        </div>
+
+        <div class="col-lg-12">
+            <nav class="navbar navbar-default" style="margin: 5px 0 10px">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">Найдено</a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <a class="btn btn-sm navbar-btn">Товары: <strong>120</strong></a>
+                        <a class="btn btn-sm navbar-btn">Закупки: <strong>2</strong></a>
+                        <a class="btn btn-sm navbar-btn">Популярные товары: <strong>34</strong></a>
+                        <a class="btn btn-sm navbar-btn">По акции: <strong>10</strong></a>
+                        <a class="btn btn-sm navbar-btn">Похожие товары: <strong>15</strong></a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row" id="mainProductsListContainer" controller="ProductsListController">
             </div>
         </div>
     </div>
@@ -42,6 +93,7 @@
 </div>
 
 <script src="/vendor/jquery/jquery-2.1.4.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="/app/app.js"></script>
 
 </body>

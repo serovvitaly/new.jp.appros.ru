@@ -1,0 +1,295 @@
+body {
+    background: #F4F4F4;
+   /* background: url("/img/pattern-6.png") fixed;*/
+}
+
+.h1, .h2, .h3, h1, h2, h3 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-family: 'PT Sans Narrow';
+}
+
+.font-mini {
+    font: 11px/14px tahoma;
+}
+
+.truncate {
+   /* white-space: nowrap;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.panel {
+    margin-bottom: 5px;
+}
+
+.panel-default {
+    border-color: #E4E4E4;
+}
+.panel-wrapper {
+    padding: 15px;
+}
+
+.sidebar-block {
+    /*padding: 18px 50px 10px;*/
+    padding: 18px 13% 10px;
+    border-bottom: 1px solid #DFDFDF;
+}
+.sidebar-block:last-of-type {
+    border-bottom: none;
+}
+.sidebar-block .alert  {
+    margin: 0 -25px 18px;
+    padding: 10px 28px 12px 23px;
+}
+
+.content-block {
+    padding: 0 0 20px;
+}
+.content-block-title {
+    text-transform: uppercase;
+    color: #797979;
+    cursor: default;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.container-wrapper {
+    background-color: #F8F8F8;
+    border-radius: 6px 5px 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.container-item-shadow {
+    background: #FFF;
+    min-height: 700px;
+}
+.container-item:first-of-type.container-item-shadow {
+    box-shadow: 2px 0 6px 0 rgba(0, 0, 0, 0.1);
+}
+.container-item:last-of-type.container-item-shadow {
+    box-shadow: -2px 0 6px 0 rgba(0, 0, 0, 0.1);
+}
+
+.tab-content {
+    background: #ffffff;
+    padding: 15px;
+    border-color: #E4E4E4;
+    border-width: 0 1px 1px 1px;
+    border-style: solid;
+}
+.comments-wrapper, .comments-header, .comments-footer {
+    padding: 10px 50px;
+}
+.comment-item {
+    padding: 10px 0;
+    margin: 0 0 10px;
+    border-bottom: 1px solid #E8E8E8;
+}
+.comment-item:last-of-type {
+    border-bottom: none;
+}
+.comment-published:before {
+    content: "\02022";
+    margin-right: 5px;
+}
+.comment-published{
+    font-size: 12px;
+    color: #B5B5B5;
+    font-style: italic;
+    padding: 0;
+}
+
+/*-- stars --*/
+.product-stars {
+    color: #FF4242;
+    font-size: 20px;
+}
+.comment-stars {
+    color: #FF7E00
+}
+.stars-small {
+    color: #FF7E00
+}
+/*-- /stars --*/
+
+.media-footer {
+    margin: 0;
+    padding: 6px 0 2px;
+}
+.media-footer .comment-published {
+    font-size: 11px;
+    color: #909090;
+    font-style: normal;
+    padding: 0;
+    line-height: 17px;
+    vertical-align: top;
+}
+
+.product-info {
+    padding: 5px 0;
+    margin: 0 0 0 -1px;
+    background: #FFF;
+    border-radius: 6px 0 0;
+}
+
+.carousel-control.left {
+    background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.0001) 100%);
+    background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .0001) 100%);
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.0001) 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+}
+
+.carousel-control.right {
+    left: auto;
+    right: 0;
+    background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0) 100%);
+    background-image: -o-linear-gradient(left, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, 0) 100%);
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0) 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
+}
+
+.media-slider {
+
+}
+.media-slider .media {
+    width: 216px;
+    display: inline-block;
+}
+.media-slider .media-body {
+    font-size: 12px;
+}
+
+.middle-block{
+    background: #373737;
+    padding: 20px 50px;
+    margin: 10px -1px 10px -2px;
+    color: #f5f5f9;
+}
+.middle-block .carousel{
+    margin: -10px 0;
+}
+.middle-block .carousel .left.carousel-control, .middle-block .carousel .right.carousel-control{
+    margin-top: -20px;
+}
+.middle-block .carousel .left.carousel-control{
+    margin-left: -50px;
+    width: 50px;
+}
+.middle-block .carousel .right.carousel-control{
+    margin-right: -50px;
+    width: 50px;
+}
+.middle-block .carousel .carousel-indicators {
+    position: inherit;
+    bottom: 0;
+    left: 0;
+    z-index: 15;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+}
+
+.table-stats {
+    font-size: 12px;
+    cursor: default;
+    border-bottom: 1px solid #DDD;
+    margin: 0;
+}
+
+.table-stats .data-value{
+    text-align: right;
+    font-weight: bold;
+}
+
+.nav-tabs-modern{
+    background: #337AB7;
+    padding: 4px 4px 0;
+}
+.nav-tabs-modern a {
+    color: #F6FCFF;
+}
+.nav-tabs-modern a:hover {
+    color: #337AB7;
+}
+
+.modern-red {
+    background: #DB0A0A;
+    color: #FFDCDC;
+}
+
+/*-- catalog --*/
+.catalog-item {
+
+}
+.catalog-item-wrapper {
+    border-radius: 4px;
+    margin: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    background: #FFF;
+}
+.catalog-item-header {
+    /*height: 140px;*/
+}
+.catalog-item-header img {
+    width: 100%;
+    display: block;
+    border-radius: 4px 4px 0 0;
+    border: 3px solid #FFF;
+}
+.catalog-item-header .empty-image {
+    font-size: 194px;
+    color: #E8E8E8;
+    display: block;
+    margin: 0 24px;
+    line-height: 193px;
+}
+.catalog-item-body {
+    padding: 5px 10px;
+}
+.catalog-item-body .title {
+    margin: 5px 0 4px;
+    font-size: 12px;
+    font-weight: bold;
+    height: 26px;
+    overflow: hidden;
+}
+.catalog-item-body .title a{
+    color: #2B2B2B;
+}
+.catalog-item-info {
+    margin: 0;
+    padding: 5px 0 0;
+    border-top: 1px solid #E8E8E8;
+}
+.catalog-item-footer {
+    padding: 7px 10px;
+    border-radius: 0 0 4px 4px;
+    background-color: #F6F6F6;
+    border-top: 1px solid #E7E7E7;
+    box-shadow: 0 1px 0 0 #FFF inset;
+    font-size: 11px;
+    color: #848484;
+    line-height: 12px;
+    vertical-align: top;
+}
+.catalog-item-footer .glyphicon {
+    padding-left: 12px;
+}
+.catalog-item-footer .glyphicon:first-of-type {
+    padding-left: 0;
+}
+.catalog-item-footer .modern {
+    float: right;
+    width: 28px;
+    height: 28px;
+    margin: -6px -10px 0 0;
+    text-align: center;
+    border-radius: 0 0 5px 0;
+    font-size: 16px;
+    line-height: 30px;
+}
+/*-- /catalog --*/
