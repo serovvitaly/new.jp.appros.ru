@@ -71,6 +71,8 @@ class BusinessLogicProvider
             $products_arr[] = new \App\BusinessLogic\ProductInPurchase($product, $purchase);
         }
 
+        //return [];
+
         return $products_arr;
     }
 

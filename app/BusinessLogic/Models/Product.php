@@ -44,10 +44,16 @@ class Product extends Model
 
     public function media($type = null)
     {
+        switch ($type) {
+            case 'image':
+                $images_ids_arr = [];
+                break;
+        }
+
         $media = $this->hasMany('\App\Models\MediaModel', 'product_id')->orderBy('position');
 
         if ($type) {
-            $media = $media->where('type', '=', $type);
+            //$media = $media->where('type', '=', $type);
         }
 
         return $media;

@@ -135,6 +135,10 @@ class PurchaseModel extends Model {
      */
     public function getPricingGridColumns($order_by = 'asc')
     {
+        if ($this->pricing_grid_id < 1) {
+            \App\Helpers\Assistant::exception('Purchase Model not to have Pricing Grid Id. PurchaseId = ' . $this->id);
+        }
+
         $pricing_grid_columns = \App\Models\PricingGridColumnModel::where('pricing_grid_id', '=', $this->pricing_grid_id)->orderBy('min_sum', $order_by);
 
         return $pricing_grid_columns;
@@ -188,44 +192,104 @@ class PurchaseModel extends Model {
     }
 
     /**
+     * Возвращает ассоциативный массив:
+     * ID Продукта -> [ ID Ценовой Колонки -> Цена ]
+     * @return array
+     * @throws \Exception
+     */
+    public function getProductsInOrdersPricesArr()
+    {
+        // Получаем все Ценовые Колонки для данной Закупки
+        $pricing_grid_columns_models_arr = $this->getPricingGridColumns()->get();
+
+        if (!count($pricing_grid_columns_models_arr)) {
+            \App\Helpers\Assistant::exception("Pricing Grid Columns array is empty. PurchaseId = {$this->id}");
+        }
+
+        $pricing_grid_columns_ids_arr = [];
+        // Собираем список ID всех Ценовых Колонок данной Закупки
+        foreach ($pricing_grid_columns_models_arr as $pricing_grid_column_model) {
+            $pricing_grid_columns_ids_arr[] = $pricing_grid_column_model->id;
+        }
+
+        // Получаем массив ID продуктов во всех заказах данной Закупки
+        $all_orders_products_ids_arr = $this->getAllOrdersProductsIdsArr();
+
+        if (empty($all_orders_products_ids_arr)) {
+            return[];
+        }
+
+        \Storage::disk('local')->put('tests/all_orders_products_ids_arr.json', implode(',', $all_orders_products_ids_arr));
+        \Storage::disk('local')->put('tests/pricing_grid_columns_ids_arr.json', implode(',', $pricing_grid_columns_ids_arr));
+
+        $products_prices_mixes_arr = \DB::table('prices')
+            ->whereIn('product_id', $all_orders_products_ids_arr)
+            ->whereIn('column_id', $pricing_grid_columns_ids_arr)
+            ->select()
+            ->get();
+
+        if (empty($products_prices_mixes_arr)) {
+            \App\Helpers\Assistant::exception("Found the product without prices. PurchaseId = {$this->id}");
+        }
+
+        $products_prices_arr = [];
+        foreach ($products_prices_mixes_arr as $product_price_mix) {
+
+            $product_id = $product_price_mix->product_id;
+            $column_id = $product_price_mix->column_id;
+            $price = $product_price_mix->price;
+
+            if (!array_key_exists($product_id, $products_prices_arr)) {
+                $products_prices_arr[$product_id] = [];
+            }
+
+            if (!array_key_exists($column_id, $products_prices_arr[$product_id])) {
+                $products_prices_arr[$product_id][$column_id] = [];
+            }
+
+            $products_prices_arr[$product_id][intval($column_id)] = doubleval($price);
+        }
+
+        return $products_prices_arr;
+    }
+
+    /**
      * Возвращает матрицу общих сумм всех "Заказов" для всех колонок,
      * где "Ключ" - Id ценовой колонки, "Значение" - общаю саумма заказов с учетом этой ценовой колонки
      * @return array
      */
     protected function getOrdersTotalSumMatrix()
     {
-        $orders_models_arr = $this->orders()->get();
-
-        if (!$orders_models_arr) {
-            return [];
-        }
-
-        $pricing_grid_columns_models_arr = $this->getPricingGridColumns()->get();
-
-        $pricing_grid_columns_ids_arr = [];
-        foreach ($pricing_grid_columns_models_arr as $pricing_grid_column_model) {
-            $pricing_grid_columns_ids_arr[] = $pricing_grid_column_model->id;
-        }
-
-        $all_orders_products_ids_arr = $this->getAllOrdersProductsIdsArr();
-
-        $products_prices_arr = [];
+        // TODO: ПРОБЛЕМНАЯ ФУНКЦИЯ, САМАЯ НАГРУЖЕННАЯ, НУЖНО ОПТИМИЗИРОВАТЬ
 
         /**
          * @var $product_model \App\BusinessLogic\Models\Product
          */
-        foreach ($all_orders_products_ids_arr as $product_id) {
-            $product_model = \App\BusinessLogic\Models\Product::find($product_id);
-            \App\Helpers\Assistant::assertModel($product_model);
 
-            $products_prices_arr[$product_id] = $product_model->getPricesArr($pricing_grid_columns_ids_arr);
+        // Получаем все Заказы данной Закупки
+        $orders_models_arr = $this->orders()->get();
+
+        // Если Заказов нет, то возвращаем пустой массив
+        if (!$orders_models_arr) {
+            return [];
         }
 
-        $total_sum_arr = [];
+        // Получаем все Ценовые Колонки для данной Закупки
+        $pricing_grid_columns_models_arr = $this->getPricingGridColumns()->get();
+
+        $pricing_grid_columns_ids_arr = [];
+        // Собираем список ID всех Ценовых Колонок данной Закупки
+        foreach ($pricing_grid_columns_models_arr as $pricing_grid_column_model) {
+            $pricing_grid_columns_ids_arr[] = $pricing_grid_column_model->id;
+        }
+
+        $products_prices_arr = $this->getProductsInOrdersPricesArr();
+
 
         $orders_mix_arr = [];
         foreach ($orders_models_arr as $order_model) {
 
+            // Наполняем массив: ID Заказа -> ['ID Продукта', 'количество Продуктов в Заказе']
             $orders_mix_arr[$order_model->id] = [
                 'product_id' => $order_model->product_id,
                 'amount' => $order_model->amount
@@ -233,14 +297,20 @@ class PurchaseModel extends Model {
 
         }
 
+        $total_sum_arr = [];
         foreach ($pricing_grid_columns_ids_arr as $pricing_grid_column_id) {
 
             $total_sum = 0;
 
             foreach ($orders_mix_arr as $order_mix) {
-                $total_sum += ($order_mix['amount'] * $products_prices_arr[$order_mix['product_id']][$pricing_grid_column_id]);
+                // Определяем цену Пролукта, для текущей Ценовой Колонки
+                $product_price = $products_prices_arr[$order_mix['product_id']][$pricing_grid_column_id];
+
+                // Итеративно наращиваем сумму Заказа
+                $total_sum += ($order_mix['amount'] * $product_price);
             }
 
+            // Заполняем выходной массив
             $total_sum_arr[$pricing_grid_column_id] = doubleval($total_sum);
         }
 
@@ -325,7 +395,10 @@ class PurchaseModel extends Model {
      */
     public function getAllOrdersProductsIdsArr()
     {
-        $products_arr = \DB::table('orders')->select('product_id')->groupBy('product_id')->get();
+        $products_arr = \DB::table('orders')
+            ->select('product_id')
+            ->where('purchase_id', '=', $this->id)
+            ->get();
 
         if (!$products_arr) {
             return [];
@@ -337,7 +410,7 @@ class PurchaseModel extends Model {
             $products_ids_arr[] = $product_obj->product_id;
         }
 
-        return $products_ids_arr;
+        return array_unique($products_ids_arr);
     }
 
     /**

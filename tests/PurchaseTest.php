@@ -149,4 +149,53 @@ class PurchaseTest extends TestCase {
 
         $this->assertNull($purchase_model);
     }
+
+    /**
+     * Тестирование функции:
+     * \App\Models\PurchaseModel::getAllOrdersProductsIdsArr
+     */
+    public function testGetAllOrdersProductsIdsArr()
+    {
+        /**
+         * @var $purchase \App\BusinessLogic\Models\Purchase
+         */
+        $purchases = \App\BusinessLogic\Models\Purchase::take(10)->get(['id']);
+
+        if (empty($purchases)) {
+            return;
+        }
+
+        foreach ($purchases as $purchase) {
+            $all_orders_products_ids_arr = $purchase->getAllOrdersProductsIdsArr();
+            //
+        }
+    }
+
+    /**
+     * Тестирование функции:
+     * \App\Models\PurchaseModel::getProductsPricesArr
+     */
+    public function testGetProductsPricesArr()
+    {
+        /**
+         * @var $purchase \App\BusinessLogic\Models\Purchase
+         */
+        $purchases = \App\BusinessLogic\Models\Purchase::take(10)->get();
+
+        if (empty($purchases)) {
+            return;
+        }
+
+        foreach ($purchases as $purchase) {
+            $products_prices_arr = $purchase->getProductsInOrdersPricesArr();
+
+            if (empty($products_prices_arr)) {
+                continue;
+            }
+
+            foreach ($products_prices_arr as $product_prices_arr) {
+                //
+            }
+        }
+    }
 }
