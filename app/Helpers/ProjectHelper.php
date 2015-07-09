@@ -5,6 +5,8 @@ class ProjectHelper {
 
     const PRICES_TABLE_NAME = 'prices';
 
+    static $products_counts_by_tag_id_arr = [];
+
     public static function getDefaultAttributesGroupId()
     {
         return 1;
@@ -50,6 +52,29 @@ class ProjectHelper {
         return $attributes_groups;
     }
 
+    /**
+     * Возвращает список ID Продуктов прявязанных к данному Тэгу
+     * @param $tag_id
+     * @return array
+     */
+    public static function getProductsIdsArrByTagId($tag_id)
+    {
+        $sql = 'SELECT product_id FROM products_tags WHERE tag_id = ?';
+
+        $products_mixes_arr = \DB::select($sql, [$tag_id]);
+
+        if (empty($products_mixes_arr)) {
+            return [];
+        }
+
+        $products_ids_arr = [];
+        foreach ($products_mixes_arr as $product_mix) {
+            $products_ids_arr[] = $product_mix->product_id;
+        }
+
+        return $products_ids_arr;
+    }
+
 
     public static function getAttributesByGroupId($group_id)
     {
@@ -66,6 +91,32 @@ class ProjectHelper {
         }
 
         return $attributes;
+    }
+
+    /**
+     * Возвращает количество Продуктов, привязанных к данному Тэгу
+     * @param $tag_id
+     */
+    public static function getProductsCountByTagId($tag_id)
+    {
+        if (empty(self::$products_counts_by_tag_id_arr)) {
+            $sql = 'SELECT pt.tag_id, COUNT(pt.product_id) AS count FROM products_tags pt JOIN products_in_purchase pp ON pt.product_id = pp.product_id GROUP BY tag_id';
+            $products_counts_mix = \DB::select($sql);
+            if (empty($products_counts_mix)) {
+                return;
+            }
+            foreach ($products_counts_mix as $products_count_mix) {
+                self::$products_counts_by_tag_id_arr[intval($products_count_mix->tag_id)] = intval($products_count_mix->count);
+            }
+        }
+
+        if (!array_key_exists($tag_id, self::$products_counts_by_tag_id_arr)) {
+            return;
+        }
+
+        return self::$products_counts_by_tag_id_arr[$tag_id];
+
+
     }
 
 }

@@ -29,8 +29,6 @@ class BusinessLogicProvider
 
     public function getProductsInPurchases()
     {
-        $search_query = \Input::get('q');
-
         $filter = \Input::get('filter', []);
 
         $search_query = '';
@@ -45,6 +43,14 @@ class BusinessLogicProvider
 
         $matches_ids = [];
 
+        if ($category_id) {
+
+            $products_ids_arr = \App\Helpers\ProjectHelper::getProductsIdsArrByTagId($category_id);
+
+            $matches_ids = array_merge($matches_ids, $products_ids_arr);
+
+        }
+
         if ($search_query) {
             $sphinx = \Sphinx\SphinxClient::create();
             $sphinx->setServer('127.0.0.1', 3312);
@@ -57,7 +63,7 @@ class BusinessLogicProvider
                 return [];
             }
 
-            $matches_ids = array_keys($res[0]['matches']);
+            $matches_ids = array_merge($matches_ids, array_keys($res[0]['matches']));
         }
 
         $products_in_purchases_query = \DB::table('products_in_purchase')->select('*');

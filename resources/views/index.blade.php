@@ -25,28 +25,24 @@
         <div class="col-lg-12">ЗАГОЛОВОК</div>
     </div>
     <div class="row">
-        <div class="col-lg-3">
-                <button class="btn btn-lg btn-primary btn-block" data-toggle="dropdown" id="mainTopCategoriesListButton">
-                    Каталог
-                    <span class="glyphicon glyphicon-menu-hamburger"></span>
-                </button>
-                <div class="dropdown-menu" style="margin-left: 15px;">
-                    <div style="width: 1168px">
-                    <div class="row" style="margin: 1px" controller="MainTopCategoriesListController">
-                        @include('catalog.list')
-                    </div>
+        <div class="col-lg-2">
+        </div>
+        <div class="col-lg-8">
+
+            <div class="input-group input-group-lg" controller="MainTopSearchController">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="mainTopCategoriesListButton">Все категории <span class="caret"></span></button>
+                    <div class="dropdown-menu" controller="MainTopCategoriesListController">
+                        @include('catalog.list_min')
                     </div>
                 </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="input-group input-group-lg" controller="MainTopSearchController">
                 <input type="text" class="form-control" placeholder="что ищем?" autocomplete="off">
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button">Go!</button>
                 </span>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-2">
         </div>
     </div>
     <div class="row">

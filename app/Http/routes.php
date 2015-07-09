@@ -55,3 +55,32 @@ Route::group(['prefix' => 'rest'], function()
     //Route::resource('grid', 'Rest\GridController');
     Route::resource('user', 'Rest\UserController');
 });
+
+
+/**
+ * Раздел "Продавцы"
+ */
+Route::group(['prefix' => 'seller', 'middleware' => 'seller'], function()
+{
+    Route::post('media/upload', 'Seller\MediaController@postUpload');
+    Route::get('media/remove/{id}', 'Seller\MediaController@getRemove');
+    Route::get('media/image/{file_name}/{width?}/{height?}', 'Seller\MediaController@getImage');
+
+    Route::get('attribute-group/{id}', 'Seller\AttributesController@getGroup');
+    Route::get('product/{id}', 'Seller\ProductsController@getProduct');
+    Route::get('product/delete/{id}', 'Seller\ProductsController@getDelete');
+
+    Route::get('suppliers/{id}', 'Seller\SuppliersController@getShow');
+    Route::get('purchases/{id}', 'Seller\PurchasesController@getShow');
+
+    Route::controllers([
+        'auth' => 'Seller\AuthController',
+        'suppliers' => 'Seller\SuppliersController',
+        'products' => 'Seller\ProductsController',
+        'pricing-grids' => 'Seller\PricingGridsController',
+        'purchases' => 'Seller\PurchasesController',
+        'prices' => 'Seller\PricesController',
+        'attributes' => 'Seller\AttributesController',
+        '/' => 'Seller\IndexController',
+    ]);
+});
