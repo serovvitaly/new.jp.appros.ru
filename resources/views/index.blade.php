@@ -48,17 +48,35 @@
     <div class="row">
 
         <div class="col-lg-12">
-            <nav class="navbar navbar-default" style="margin: 10px 0 5px">
-                <div class="collapse navbar-collapse btn-group">
-                    <button type="button" class="btn btn-default navbar-btn">Товары для детей</button>
-                    <button type="button" class="btn btn-default navbar-btn">Товары для женщин</button>
-                    <button type="button" class="btn btn-default navbar-btn">Товары для мужчин</button>
+            <div class="btn-group btn-group-justified" style="margin: 10px 0 1px">
+                <div class="btn-group" style="width: 3px"><button type="button" class="btn btn-default btn-lg">...</button></div>
+                <div class="btn-group"><button type="button" class="btn btn-default btn-lg">Для детей</button></div>
+                <div class="btn-group"><button type="button" class="btn btn-default btn-lg">Для женщин</button></div>
+                <div class="btn-group"><button type="button" class="btn btn-default btn-lg">Для мужчин</button></div>
+                <div class="btn-group"><button type="button" class="btn btn-default btn-lg">Для дома</button></div>
+                <div class="btn-group"><button type="button" class="btn btn-default btn-lg">Спорт и отдых</button></div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <nav class="navbar navbar-default" style="margin: 5px 0 5px; min-height: inherit;">
+                <div class="btn-group btn-group-justified">
+                    <div class="btn-group"><a href="#" class="btn btn-link btn-sm">Для женщин</a></div>
+                    <div class="btn-group"><a href="#" class="btn btn-link btn-sm">Для женщин</a></div>
+                    <div class="btn-group"><a href="#" class="btn btn-link btn-sm">Для женщин</a></div>
+                    <div class="btn-group"><a href="#" class="btn btn-link btn-sm">Для женщин</a></div>
+                    <div class="btn-group"><a href="#" class="btn btn-link btn-sm">Для женщин</a></div>
+                    <div class="btn-group"><a href="#" class="btn btn-link btn-sm">Для женщин</a></div>
+                    <div class="btn-group"><a href="#" class="btn btn-link btn-sm">Для женщин</a></div>
+                    <div class="btn-group"><a href="#" class="btn btn-link btn-sm">Для женщин</a></div>
+                    <div class="btn-group"><a href="#" class="btn btn-link btn-sm">Для женщин</a></div>
+                    <div class="btn-group"><a href="#" class="btn btn-link btn-sm">Для женщин</a></div>
                 </div>
             </nav>
         </div>
 
         <div class="col-lg-12">
-            <nav class="navbar navbar-default" style="margin: 5px 0 10px">
+            <nav class="navbar navbar-default" style="margin: 1px 0 10px">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <a class="navbar-brand" href="#">Найдено</a>
