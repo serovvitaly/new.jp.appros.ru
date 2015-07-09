@@ -38,7 +38,7 @@ class SassCommand extends Command {
 	public function fire()
 	{
         $sass_source_dir = base_path() . '/resources/scss/';
-        $css_target_dir  = base_path() . '/public/css/app';
+        $css_target_dir  = base_path() . '/public/vendor/bootstrap/css/';
 
         \SassCompiler::run($sass_source_dir, $css_target_dir);
 	}
