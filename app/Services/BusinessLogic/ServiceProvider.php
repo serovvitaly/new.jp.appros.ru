@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Service\BusinessLogic;
+namespace App\Services\BusinessLogic;
 
 
-class ServiceProvider
+class ServiceProvider extends \App\BusinessLogic\BusinessLogicProvider
 {
     protected $app = null;
 
-    public function __construct($app)
+  /*  public function __construct($app)
     {
         $this->app = $app;
 
         $this->user = \Auth::user();
-    }
+    }*/
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Rating;
+namespace App\Services\Rating;
 
 
 class ServiceProvider

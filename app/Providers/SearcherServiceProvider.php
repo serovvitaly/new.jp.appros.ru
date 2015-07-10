@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class BusinessLogicServiceProvider extends ServiceProvider
+class SearcherServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -23,8 +23,8 @@ class BusinessLogicServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('BusinessLogic', function ($app) {
-            return new \App\Services\BusinessLogic\ServiceProvider($app);
+        $this->app->singleton('Searcher', function ($app) {
+            return new \App\Services\Searcher\ServiceProvider($app);
         });
     }
 }

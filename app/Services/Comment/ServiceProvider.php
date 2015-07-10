@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Comment;
+namespace App\Services\Comment;
 
 
 class ServiceProvider

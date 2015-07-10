@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Searcher;
+namespace App\Services\Searcher;
 
 
 class ServiceProvider

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Billing;
+namespace App\Services\Billing;
 
 
 class ServiceProvider
