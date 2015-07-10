@@ -76,7 +76,7 @@
 
 <div class="comments-wrapper">
 
-    @foreach(\App\Helpers\CommentsHelper::getCommentsForTarget($target_id, $target_type) as $comment)
+    @foreach(\Comment::getCommentsForTarget($target_id, $target_type) as $comment)
 
         <div class="comment-item">
             <div class="media">

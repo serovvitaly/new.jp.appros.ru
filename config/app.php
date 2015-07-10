@@ -147,7 +147,7 @@ return [
         App\Providers\BusinessLogicServiceProvider::class,
 
         App\Providers\BillingManagerServiceProvider::class,
-        App\Providers\CommentManagerServiceProvider::class,
+        App\Services\CommentManager\ServiceProvider::class,
         App\Providers\OrderManagerServiceProvider::class,
         App\Providers\RatingManagerServiceProvider::class,
         App\Providers\SearcherManagerServiceProvider::class,
@@ -200,6 +200,8 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+
+        'Comment'   => App\Services\CommentManager\Facade::class,
 
     ],
 

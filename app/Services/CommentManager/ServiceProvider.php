@@ -2,19 +2,35 @@
 
 namespace App\Services\CommentManager;
 
-/**
- * Предназначен для работы с Комментариями
- *
- * @package App\Services\CommentManager
- */
-class ServiceProvider
+
+class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
-    protected $app = null;
-
-    public function __construct($app)
+    /**
+     * Bootstrap the application services.
+     *
+     * @return void
+     */
+    public function boot()
     {
-        $this->app = $app;
+        //
+    }
 
-        $this->user = \Auth::user();
+    /**
+     * Register the application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        /*$this->app->singleton('CommentManager', function ($app) {
+            return new CommentManager($app);
+        });*/
+
+
+        $this->app->bind('comment', function($app){
+
+            return new CommentManager($app);
+
+        });
     }
 }

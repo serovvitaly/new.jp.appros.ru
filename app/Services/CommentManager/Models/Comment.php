@@ -1,8 +1,11 @@
-<?php namespace App\Models;
+<?php
 
-use Illuminate\Database\Eloquent\Model;
+namespace App\Services\CommentManager\Models;
 
-class CommentModel extends Model {
+
+use App\Models\CommentModel;
+
+class Comment extends CommentModel {
 
     const TARGET_TYPE_SELLER   = 'seller';
 

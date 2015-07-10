@@ -123,7 +123,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            @include('product.widgets.comments',  ['target_id' => $product_in_purchase->getId(), 'target_type' => \App\Models\CommentModel::TARGET_TYPE_PRODUCT_IN_PURCHASE])
+                            @include('product.widgets.comments',  ['target_id' => $product_in_purchase->getId(), 'target_type' => \App\Services\CommentManager\Models\Comment::TARGET_TYPE_PRODUCT_IN_PURCHASE])
                             {!! \App\Helpers\WidgetHelper::region('product_bottom', 'buyer') !!}
                         </div>
                     </div>
