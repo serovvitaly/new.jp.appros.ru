@@ -143,7 +143,15 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
         App\Providers\BusinessLogicServiceProvider::class,
+
+        App\Providers\BillingManagerServiceProvider::class,
+        App\Providers\CommentManagerServiceProvider::class,
+        App\Providers\OrderManagerServiceProvider::class,
+        App\Providers\RatingManagerServiceProvider::class,
+        App\Providers\SearcherManagerServiceProvider::class,
+        App\Providers\ShopkeeperManagerServiceProvider::class,
 
     ],
 

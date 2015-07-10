@@ -50,7 +50,7 @@ Route::group(['prefix' => 'rest'], function()
     //Route::resource('media', 'Rest\MediaController');
     //Route::resource('basket', 'Rest\BasketController');
     //Route::resource('token', 'Rest\TokenController');
-    //Route::resource('comment', 'Rest\CommentController');
+    Route::resource('comment', 'Rest\CommentController');
     Route::resource('order', 'Rest\OrderController');
     //Route::resource('grid', 'Rest\GridController');
     Route::resource('user', 'Rest\UserController');

@@ -5,7 +5,7 @@ class CatalogController extends Controller {
 
     public function getIndex()
     {
-        $products_in_purchases = app('BusinessLogic')->getProductsInPurchases();
+        $products_in_purchases = app('SearcherManager')->getProductsInPurchases();
 
         $output = '';
 

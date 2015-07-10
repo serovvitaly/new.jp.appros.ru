@@ -2,7 +2,11 @@
 
 namespace App\Services\BillingManager;
 
-
+/**
+ * Предназначен для работы с Биллингом
+ *
+ * @package App\Services\BillingManager
+ */
 class ServiceProvider
 {
     protected $app = null;
