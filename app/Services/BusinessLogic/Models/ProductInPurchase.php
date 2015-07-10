@@ -1,4 +1,4 @@
-<?php namespace App\BusinessLogic;
+<?php namespace App\Services\BusinessLogic\Models;
 
 
 use App\BusinessLogic\Models\Product;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Searcher;
+namespace App\Services\BillingManager;
 
 
 class ServiceProvider

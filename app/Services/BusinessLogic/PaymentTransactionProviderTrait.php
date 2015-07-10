@@ -1,6 +1,6 @@
 <?php
 
-namespace App\BusinessLogic;
+namespace App\Services\BusinessLogic;
 
 
 trait PaymentTransactionProviderTrait

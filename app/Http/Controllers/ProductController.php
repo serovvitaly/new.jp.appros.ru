@@ -18,7 +18,7 @@ class ProductController extends Controller {
         \App\Helpers\Assistant::assertModel($purchase_model);
 
         //$product_in_purchase = \App\Models\ProductInPurchaseModel::findByProductIdAndByPurchaseId($product_id, $purchase_id);
-        $product_in_purchase = new \App\BusinessLogic\ProductInPurchase($product_model, $purchase_model);
+        $product_in_purchase = new \App\Services\BusinessLogic\Models\ProductInPurchase($product_model, $purchase_model);
 
     //    \App\Models\AttendanceCounterModel::enrol($product_in_purchase->id, \App\Models\AttendanceCounterModel::TARGET_TYPE_PRODUCT_IN_PURCHASE);
 

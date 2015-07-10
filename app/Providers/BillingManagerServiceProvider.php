@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class CommentServiceProvider extends ServiceProvider
+class BillingManagerServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -23,8 +23,8 @@ class CommentServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('Comment', function ($app) {
-            return new \App\Services\Comment\ServiceProvider($app);
+        $this->app->singleton('BillingManager', function ($app) {
+            return new \App\Services\BillingManager\ServiceProvider($app);
         });
     }
 }

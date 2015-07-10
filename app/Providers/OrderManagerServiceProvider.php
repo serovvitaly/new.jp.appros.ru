@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class SearcherServiceProvider extends ServiceProvider
+class OrderManagerServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -23,8 +23,8 @@ class SearcherServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('Searcher', function ($app) {
-            return new \App\Services\Searcher\ServiceProvider($app);
+        $this->app->singleton('OrderManager', function ($app) {
+            return new \App\Services\OrderManager\ServiceProvider($app);
         });
     }
 }
